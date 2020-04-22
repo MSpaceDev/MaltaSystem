@@ -2,19 +2,24 @@ syntax = "proto3";
 package v1;
 option go_package = ".;v1";
 
-message Hand{
+message Round{
     string player1 = 1;
     string player2 = 2;
 }
 
 message CalculateRequest{
     string api = 1;
-    repeated Hand hands = 2;
+    repeated Round hands = 2;
+    string hackData = 3;
+}
+
+message Data {
+    string data = 1;
 }
 
 message CalculateResponse{
     string api = 1;
-    bool success = 2;
+    Data data = 2;
 }
 
 service MaltaBE {

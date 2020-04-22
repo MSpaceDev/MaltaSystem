@@ -36,9 +36,10 @@ func main() {
 	//Ping
 	req1 := v1.CalculateRequest{
 		Api: apiVersion,
-	}
+		HackData: "8C TS KC 9H 4S 7D 2S 5D 3S AC\n5C AD 5D AC 9C 7C 5H 8D TD KS\n3H 7H 6S KC JS QH TD JC 2D 8S\nTH 8H 5C QS TC 9H 4D JC KS JS",
+		}
 
 	res1, _ := c.Calculate(ctx, &req1)
 
-	log.Printf("Calculated: %v", res1.Success)
+	log.Printf("Calculated: %v", res1.Data)
 }
