@@ -40,14 +40,31 @@ namespace MaltaFE
                 FilePathText.Text = fileDialog.FileName;
 
                 String hands = File.ReadAllText(fileDialog.FileName).Replace("\n", "\\n");
+                hands = ReplaceLastOccurrence(hands, "\\n", "");
 
                 CalculateRequest calculateRequest = new CalculateRequest();
                 calculateRequest.Api = "1";
                 calculateRequest.HackData = hands;
 
+                if (AuthCheckbox.IsChecked.GetValueOrDefault())
+                    calculateRequest.Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJIYXBweVNhaWxhIn0.IIDVkUYHojF8Uy2xi3JtS8I5GBHX2vKNZNx8awegNt8";
+                else
+                    calculateRequest.Token = "";
+
                 CalculateResponse calculateResponse = MaltaBEClient.Calculate(calculateRequest);
                 OutputText.Text = calculateResponse.Data;
             }
+        }
+
+        private string ReplaceLastOccurrence(string Source, string Find, string Replace)
+        {
+            int place = Source.LastIndexOf(Find);
+
+            if (place == -1)
+                return Source;
+
+            string result = Source.Remove(place, Find.Length).Insert(place, Replace);
+            return result;
         }
     }
 }
