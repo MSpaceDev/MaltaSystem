@@ -1,0 +1,23 @@
+syntax = "proto3";
+package v1;
+option go_package = ".;v1";
+
+message Round{
+    string player1 = 1;
+    string player2 = 2;
+}
+
+message CalculateRequest{
+    string api = 1;
+    repeated Round hands = 2;
+    string hackData = 3;
+}
+
+message CalculateResponse{
+    string api = 1;
+    string data = 2;
+}
+
+service MaltaBE {
+    rpc Calculate(CalculateRequest) returns (CalculateResponse);
+}
